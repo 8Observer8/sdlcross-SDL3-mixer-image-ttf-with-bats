@@ -3,7 +3,7 @@ All libs are included to this repo.
 ##Demos:
 
 - Demo in the browser: https://sdlcross-sdl3-mixer-image-ttf-bats.netlify.app/ (zip - 1.78 MB, unzipped - 3.71 MB)
-- [Download EXE](https://www.dropbox.com/scl/fi/9tz7xza6ztpv21mdaca1w/sdlcross-SDL3-mixer-image-ttf-with-bats-exe.zip?rlkey=2ab5dcbm83xaa14eoxu1gzeuu&st=r1eadwzx&raw=1) ()
+- [Download EXE](https://www.dropbox.com/scl/fi/9tz7xza6ztpv21mdaca1w/sdlcross-SDL3-mixer-image-ttf-with-bats-exe.zip?rlkey=2ab5dcbm83xaa14eoxu1gzeuu&st=r1eadwzx&raw=1) (zip - 3.4 MB, unzipped - 7.0 MB)
 - [Download APK](https://www.dropbox.com/scl/fi/h6iqy50814a89redd15i3/app-debug.apk?rlkey=7l2eyypanzvenylssrdi85w1e&st=8rhydqb0&raw=1) - (apk - 6.4 MB, installed - 12.45 MB)
 
 ##Android:
