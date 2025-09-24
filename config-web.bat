@@ -5,7 +5,7 @@ emcmake cmake -S . -B dist/web ^
 -DSDL3_ttf_DIR=%~dp0/libs/SDL3_ttf-3.2.2-wasm/lib/cmake/SDL3_ttf ^
 -DFREETYPE_INCLUDE_DIRS=%~dp0/libs/freetype-2.13.3-prefix/web/include ^
 -DFREETYPE_LIBRARY=%~dp0/libs/freetype-2.13.3-prefix/web/lib/libfreetype.a ^
--DCMAKE_BUILD_TYPE=Release ^
+-DCMAKE_BUILD_TYPE=Debug ^
 -DWITH_IMAGE=ON ^
 -DWITH_MIXER=ON ^
 -DWITH_TTF=ON

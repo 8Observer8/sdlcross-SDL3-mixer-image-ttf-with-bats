@@ -115,6 +115,10 @@ int main(int argc, char *argv[])
     SDL_SetHint("SDL_MIXER_DISABLE_DRFLAC", "1");
     SDL_SetHint("SDL_MIXER_DISABLE_DRMP3", "1");
 
+    // Disable mouse event synthesis from touch events
+    SDL_SetHint(SDL_HINT_TOUCH_MOUSE_EVENTS, "0");
+    SDL_SetHint(SDL_HINT_MOUSE_TOUCH_EVENTS, "0");
+
     if (!SDL_Init(SDL_INIT_VIDEO))
     {
         SDL_Log("SDL_Init failed (%s)", SDL_GetError());
@@ -176,6 +180,9 @@ int main(int argc, char *argv[])
             }
         }
     }
+
+    // Enable debug logging
+    SDL_SetLogPriorities(SDL_LOG_PRIORITY_DEBUG);
 
     const char *audiofname = NULL;
 
@@ -472,7 +479,7 @@ int main(int argc, char *argv[])
                     break;
                 case SDL_EVENT_FINGER_UP:
                     SDL_LogDebug(SDL_LOG_CATEGORY_APPLICATION,
-                        "mouse button up: fingerID=%d, [%f, %f]",
+                        "finger up: fingerID=%d, [%f, %f]",
                         (int)event.tfinger.fingerID, event.tfinger.x,
                         event.tfinger.y);
                     if (event.tfinger.fingerID >= 0 && event.tfinger.fingerID < (int)ARRAY_SIZE(g_locations))
@@ -482,7 +489,7 @@ int main(int argc, char *argv[])
                     break;
                 case SDL_EVENT_FINGER_MOTION:
                     SDL_LogDebug(SDL_LOG_CATEGORY_APPLICATION,
-                        "mouse move: button=%d", event.motion.which);
+                        "finger move: button=%d", event.motion.which);
                     if (event.tfinger.fingerID >= 0 && event.tfinger.fingerID < (int)ARRAY_SIZE(g_locations))
                     {
                         g_locations[event.tfinger.fingerID].rect.x =
@@ -496,7 +503,7 @@ int main(int argc, char *argv[])
                         "Received SDL_EVENT_TERMINATING");
                     g_quit = 1;
                     break;
-#endif
+#endif // SDL_PLATFORM_ANDROID || SDL_PLATFORM_EMSCRIPTEN
                 case SDL_EVENT_KEY_UP:
                     switch (event.key.key)
                     {
@@ -697,7 +704,7 @@ static void main_loop(void *arg)
                 g_foreground = 1;
                 break;
 #endif
-#if defined(SDL_PLATFORM_ANDROID)
+#if defined(SDL_PLATFORM_ANDROID) || defined(SDL_PLATFORM_EMSCRIPTEN)
             case SDL_EVENT_FINGER_DOWN:
                 SDL_LogDebug(SDL_LOG_CATEGORY_APPLICATION,
                     "finger down: fingerID=%d, [%f, %f]",
@@ -720,16 +727,17 @@ static void main_loop(void *arg)
                 break;
             case SDL_EVENT_FINGER_UP:
                 SDL_LogDebug(SDL_LOG_CATEGORY_APPLICATION,
-                    "mouse button up: fingerID=%d, [%f, %f]",
+                    "finger up: fingerID=%d, [%f, %f]",
                     (int)event.tfinger.fingerID, event.tfinger.x,
                     event.tfinger.y);
                 if (event.tfinger.fingerID >= 0 && event.tfinger.fingerID < (int)ARRAY_SIZE(g_locations))
                 {
+                    SDL_Log("fingerID: %d", (int)event.tfinger.fingerID);
                     g_locations[event.tfinger.fingerID].valid = 0;
                 }
                 break;
             case SDL_EVENT_FINGER_MOTION:
-                SDL_LogDebug(SDL_LOG_CATEGORY_APPLICATION, "mouse move: button=%d",
+                SDL_LogDebug(SDL_LOG_CATEGORY_APPLICATION, "finger move: button=%d",
                     event.motion.which);
                 if (event.tfinger.fingerID >= 0 && event.tfinger.fingerID < (int)ARRAY_SIZE(g_locations))
                 {
